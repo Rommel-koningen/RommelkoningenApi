@@ -1,0 +1,37 @@
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
+using RommelkoningenApi.Models;
+
+namespace RommelkoningenApi.Configurations
+{
+    public class FotoDataConfiguration : IEntityTypeConfiguration<FotoData>
+    {
+        public void Configure(EntityTypeBuilder<FotoData> builder)
+        {
+            builder.ToTable("FotoData");
+            builder.HasKey(f => f.Foto_Id);
+            builder.Property(f => f.Datum_En_Tijd);
+            builder.Property(f => f.Camera_Naam);
+            builder.Property(f => f.Longitude);
+            builder.Property(f => f.Latitude);
+            builder.Property(f => f.Postcode);
+            builder.Property(f => f.windrichting);
+            builder.Property(f => f.temperatuur);
+            builder.Property(f => f.Weer_Omschrijving);
+
+            //builder.HasData(
+            //    new FotoData
+            //    {
+            //        Foto_Id = new Guid(),
+            //        Datum_En_Tijd = new DateTime(),
+            //        Camera_Naam = "Cam 1",
+            //        Longitude = 4.3517f,
+            //        Latitude = 50.8503f,
+            //        Postcode = "4246FP",
+            //        windrichting = "SE",
+            //        temperatuur = 20,
+            //        Weer_Omschrijving = "Light drizzle"
+            //    });
+        }
+    }
+}
