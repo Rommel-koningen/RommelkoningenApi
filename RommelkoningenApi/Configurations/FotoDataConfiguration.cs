@@ -18,20 +18,6 @@ namespace RommelkoningenApi.Configurations
             builder.Property(f => f.Windrichting);
             builder.Property(f => f.Temperatuur);
             builder.Property(f => f.Weer_Omschrijving);
-
-            //builder.HasData(
-            //    new FotoData
-            //    {
-            //        Foto_Id = new Guid(),
-            //        Datum_En_Tijd = new DateTime(),
-            //        Camera_Naam = "Cam 1",
-            //        Longitude = 4.3517f,
-            //        Latitude = 50.8503f,
-            //        Postcode = "4246FP",
-            //        windrichting = "SE",
-            //        temperatuur = 20,
-            //        Weer_Omschrijving = "Light drizzle"
-            //    });
         }
     }
 }
