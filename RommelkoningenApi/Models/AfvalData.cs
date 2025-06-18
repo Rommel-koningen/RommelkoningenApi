@@ -10,6 +10,6 @@ namespace RommelkoningenApi.Models
         public Guid Foto_Id { get; set; }
         [Required]
         public string Afval_Type { get; set; }
-        public float Confidence { get; set; }
+        public float? Confidence { get; set; }
     }
 }

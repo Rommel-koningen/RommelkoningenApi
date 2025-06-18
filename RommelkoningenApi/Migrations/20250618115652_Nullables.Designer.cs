@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RommelkoningenApi.Data;
 
@@ -11,9 +12,11 @@ using RommelkoningenApi.Data;
 namespace RommelkoningenApi.Migrations
 {
     [DbContext(typeof(AfvalDbContext))]
-    partial class AfvalDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250618115652_Nullables")]
+    partial class Nullables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

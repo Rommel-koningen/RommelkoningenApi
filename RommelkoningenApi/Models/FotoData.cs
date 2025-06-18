@@ -16,8 +16,8 @@ namespace RommelkoningenApi.Models
         public float Latitude { get; set; }
         [Required]
         public string Postcode { get; set; }
-        public string Windrichting { get; set; }
-        public int Temperatuur { get; set; }
-        public string Weer_Omschrijving { get; set; }
+        public string? Windrichting { get; set; }
+        public int? Temperatuur { get; set; }
+        public string? Weer_Omschrijving { get; set; }
     }
 }

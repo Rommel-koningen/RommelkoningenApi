@@ -16,15 +16,6 @@ namespace RommelkoningenApi.Configurations
             builder.HasOne<FotoData>()
                 .WithMany()
                 .HasForeignKey(a => a.Foto_Id);
-
-            //builder.HasData(
-            //    new AfvalData
-            //    {
-            //        Afval_Id = Guid.NewGuid(),
-            //        Foto_Id = FotoDataConfiguration.Foto_Id,
-            //        Afval_Type = "Plastic",
-            //        Confidence = 0.95f
-            //    });
         }
     }
 }
