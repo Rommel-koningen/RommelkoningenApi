@@ -15,8 +15,8 @@ namespace RommelkoningenApi.Configurations
             builder.Property(f => f.Longitude);
             builder.Property(f => f.Latitude);
             builder.Property(f => f.Postcode);
-            builder.Property(f => f.windrichting);
-            builder.Property(f => f.temperatuur);
+            builder.Property(f => f.Windrichting);
+            builder.Property(f => f.Temperatuur);
             builder.Property(f => f.Weer_Omschrijving);
 
             //builder.HasData(

@@ -14,10 +14,45 @@ builder.Services.AddSwaggerGen();
 var connectionString =
 builder.Configuration["SqlConnectionString"];
 
+var apiKey =
+builder.Configuration["ApiKey"];
+
 builder.Services.AddDbContext<AfvalDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 var app = builder.Build();
+
+
+// Define your constants
+const string API_KEY_NAME = "Api-Key-Name";
+string API_KEY = apiKey; // Secure this in real apps
+
+// Add API key middleware
+app.Use(async (context, next) =>
+{
+    if (!context.Request.Headers.TryGetValue(API_KEY_NAME, out var extractedApiKey))
+    {
+        context.Response.StatusCode = 401;
+        await context.Response.WriteAsync("API Key was not provided.");
+        return;
+    }
+
+    if (!API_KEY.Equals(extractedApiKey))
+    {
+        context.Response.StatusCode = 403;
+        await context.Response.WriteAsync("Unauthorized client.");
+        return;
+    }
+
+    await next();
+});
+
+// Define a sample endpoint
+app.MapGet("/secure-data", () =>
+{
+    return Results.Ok("You accessed protected data!");
+});
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
