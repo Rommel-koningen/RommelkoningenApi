@@ -1,0 +1,60 @@
+name: Trigger auto deployment for rommelkoningencontainer
+
+on:
+  push:
+    branches: 
+      [ master ]
+    paths:
+      - '**'
+      - '.github/workflows/rommelkoningencontainer-AutoDeployTrigger-2923fe09-43e0-413a-b352-eb62139562da.yml'
+
+  workflow_dispatch:
+
+jobs:
+  build-test-migrate-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Run unit tests
+      run: dotnet test --no-build --verbosity normal
+
+    - name: EF Core Database Migration
+      env:
+        DOTNET_CONNECTION_STRING: ${{ secrets.ROMMELKONINGENCONTAINER_DB_CONNECTION }}
+      run: |
+        dotnet tool install --global dotnet-ef
+        export PATH="$PATH:/home/runner/.dotnet/tools"
+        dotnet ef database update --project RommelkoningenApi/RommelkoningenApi.csproj --connection "${{ secrets.ROMMELKONINGENCONTAINER_DB_CONNECTION }}"
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.ROMMELKONINGENCONTAINER_AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.ROMMELKONINGENCONTAINER_AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.ROMMELKONINGENCONTAINER_AZURE_SUBSCRIPTION_ID }}
+
+    - name: Build and deploy to Azure Container App
+      uses: azure/container-apps-deploy-action@v2
+      with:
+        appSourcePath: ${{ github.workspace }}
+        _dockerfilePathKey_: _dockerfilePath_
+        registryUrl: rommelkoningenregistry.azurecr.io
+        registryUsername: ${{ secrets.ROMMELKONINGENCONTAINER_REGISTRY_USERNAME }}
+        registryPassword: ${{ secrets.ROMMELKONINGENCONTAINER_REGISTRY_PASSWORD }}
+        containerAppName: rommelkoningencontainer
+        resourceGroup: rommelkoningen
+        imageToBuild: rommelkoningenregistry.azurecr.io/rommelkoningencontainer:${{ github.sha }}
