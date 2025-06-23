@@ -12,10 +12,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString =
-builder.Configuration["SqlConnectionString"];
+builder.Configuration["connectionstring"];
 
 var apiKey =
-builder.Configuration["ApiKey"];
+builder.Configuration["apikey"];
 
 builder.Services.AddDbContext<AfvalDbContext>(options =>
     options.UseSqlServer(connectionString));
