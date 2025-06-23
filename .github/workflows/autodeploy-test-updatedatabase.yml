@@ -38,7 +38,7 @@ jobs:
       run: |
         dotnet tool install --global dotnet-ef
         export PATH="$PATH:/home/runner/.dotnet/tools"
-        dotnet ef database update --connection RommelkoningenApi/RommelkoningenApi.csproj
+        dotnet ef database update --connection "${{ secrets.ROMMELKONINGENCONTAINER_DB_CONNECTION }}"
 
     - name: Azure Login
       uses: azure/login@v1
