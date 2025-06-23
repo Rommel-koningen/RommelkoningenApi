@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString =
-builder.Configuration["connectionstring"];
+builder.Configuration["defaultconnectionstring"];
 
 var apiKey =
 builder.Configuration["apikey"];
