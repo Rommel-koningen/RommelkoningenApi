@@ -30,7 +30,7 @@ jobs:
       run: dotnet restore
 
     - name: Run unit tests
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test
 
     - name: EF Core Database Migration
       env:
