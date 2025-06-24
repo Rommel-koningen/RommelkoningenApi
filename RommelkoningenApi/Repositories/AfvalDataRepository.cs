@@ -4,7 +4,7 @@ using RommelkoningenApi.Models;
 
 namespace RommelkoningenApi.Repositories
 {
-    public class AfvalDataRepository
+    public class AfvalDataRepository : IAfvalDataRepository
     {
         private readonly string connectionString;
 

@@ -4,7 +4,7 @@ using RommelkoningenApi.Models;
 
 namespace RommelkoningenApi.Repositories
 {
-    public class FotoDataRepository
+    public class FotoDataRepository : IFotoDataRepository
     {
         private readonly string connectionString;
 
